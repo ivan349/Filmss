@@ -6,7 +6,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import ru.urinoff.filmss.data.network.ApiService
 import javax.inject.Singleton
 
@@ -14,13 +13,14 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    const val BASE_URL = "https://api/tvmaze.com/shows/"
+    @Provides
+    fun baseUrl() = "https://api.tvmaze.com/"
 
     @Provides
     @Singleton
-    fun provideRetrofit() : ApiService =
+    fun provideRetrofit(baseUrl: String ) : ApiService =
         Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiService::class.java)

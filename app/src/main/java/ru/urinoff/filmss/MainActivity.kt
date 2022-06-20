@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.urinoff.filmss.navigation.SetupNavHost
@@ -22,7 +23,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             FilmssTheme {
               val navController = rememberNavController()
-                SetupNavHost(navController = navController)
+                val viewModel = hiltViewModel<MainViewModel>()
+                SetupNavHost(navController = navController, viewModel =viewModel)
             }
         }
     }
